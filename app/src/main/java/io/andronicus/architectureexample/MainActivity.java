@@ -16,5 +16,8 @@ public class MainActivity extends AppCompatActivity {
         //get Viewmodel from the android system since it knows when to
         // create a new one when necessary
         mViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        mViewModel.getNotes().observe(this,notes -> {
+            //Update recyclerview data here
+        });
     }
 }
