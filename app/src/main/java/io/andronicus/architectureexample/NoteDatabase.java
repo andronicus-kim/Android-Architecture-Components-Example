@@ -1,9 +1,12 @@
 package io.andronicus.architectureexample;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 @Database(entities = {Note.class},version = 1,exportSchema = false)
 public abstract class NoteDatabase extends RoomDatabase {
@@ -22,5 +25,25 @@ public abstract class NoteDatabase extends RoomDatabase {
                     .build();
         }
         return instance;
+    }
+
+    private static RoomDatabase.Callback sCallback = new Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+        }
+    };
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        private NoteDao mNoteDao;
+
+        private PopulateDbAsyncTask(NoteDatabase database){
+            mNoteDao = database.sNoteDao();
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
     }
 }
