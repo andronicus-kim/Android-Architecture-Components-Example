@@ -15,4 +15,24 @@ public class NoteViewModel extends AndroidViewModel {
     public NoteViewModel(@NonNull Application application) {
         super(application);
     }
+
+    public void insert(Note note){
+        mRepository.insert(note);
+    }
+
+    public void update(Note note){
+        mRepository.update(note);
+    }
+
+    public void delete(Note note){
+        mRepository.delete(note);
+    }
+
+    public void deleteAll(){
+        mRepository.deleteAll();
+    }
+
+    public LiveData<List<Note>> getNotes() {
+        return mNotes;
+    }
 }
