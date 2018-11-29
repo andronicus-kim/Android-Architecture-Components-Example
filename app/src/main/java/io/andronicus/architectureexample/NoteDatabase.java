@@ -10,7 +10,7 @@ public abstract class NoteDatabase extends RoomDatabase {
 
     private static NoteDatabase instance;
 
-    public static NoteDao sNoteDao;
+    public abstract NoteDao sNoteDao();
 
     public static synchronized NoteDatabase getInstance(Context context){
         if (instance == null){
