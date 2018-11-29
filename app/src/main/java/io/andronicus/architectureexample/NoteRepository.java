@@ -21,15 +21,15 @@ public class NoteRepository {
     }
 
     public void update(Note note){
-
+        new UpdateNoteAsyncTask(mNoteDao).execute(note);
     }
 
     public void delete(Note note){
-
+        new DeleteNoteAsyncTask(mNoteDao).execute(note);
     }
 
     public void deleteAll(){
-
+        new DeleteAllNotesAsyncTask(mNoteDao).execute();
     }
 
     public LiveData<List<Note>> getNotes() {
