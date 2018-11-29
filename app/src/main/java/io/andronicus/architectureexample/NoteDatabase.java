@@ -22,6 +22,7 @@ public abstract class NoteDatabase extends RoomDatabase {
                     NoteDatabase.class,
                     "note_database")
                     .fallbackToDestructiveMigration()
+                    .addCallback(sCallback)
                     .build();
         }
         return instance;
@@ -31,6 +32,7 @@ public abstract class NoteDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
         }
     };
 
@@ -43,6 +45,9 @@ public abstract class NoteDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
+            mNoteDao.insert(new Note("Title 1","Descrition 1",1));
+            mNoteDao.insert(new Note("Title 2","Descrition 2",2));
+            mNoteDao.insert(new Note("Title 3","Descrition 3",3));
             return null;
         }
     }
