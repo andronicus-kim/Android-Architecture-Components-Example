@@ -50,11 +50,11 @@ public class NoteRepository {
         }
     }
 
-    private static class updateNoteAsyncTask extends AsyncTask<Note,Void,Void>{
+    private static class UpdateNoteAsyncTask extends AsyncTask<Note,Void,Void>{
 
         private NoteDao mNoteDao;
 
-        private updateNoteAsyncTask(NoteDao noteDao){
+        private UpdateNoteAsyncTask(NoteDao noteDao){
             this.mNoteDao = noteDao;
         }
         @Override
@@ -64,11 +64,11 @@ public class NoteRepository {
         }
     }
 
-    private static class deleteNoteAsyncTask extends AsyncTask<Note,Void,Void>{
+    private static class DeleteNoteAsyncTask extends AsyncTask<Note,Void,Void>{
 
         private NoteDao mNoteDao;
 
-        private deleteNoteAsyncTask(NoteDao noteDao){
+        private DeleteNoteAsyncTask(NoteDao noteDao){
             this.mNoteDao = noteDao;
         }
         @Override
@@ -78,11 +78,11 @@ public class NoteRepository {
         }
     }
 
-    private static class deleteAllNotesAsyncTask extends AsyncTask<Void,Void,Void>{
+    private static class DeleteAllNotesAsyncTask extends AsyncTask<Void,Void,Void>{
 
         private NoteDao mNoteDao;
 
-        private deleteAllNotesAsyncTask(NoteDao noteDao){
+        private DeleteAllNotesAsyncTask(NoteDao noteDao){
             this.mNoteDao = noteDao;
         }
 
