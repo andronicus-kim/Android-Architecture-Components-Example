@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
         mViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         mViewModel.getNotes().observe(this,notes -> {
             //Update recyclerview data here
-            Toast.makeText(this, "onChanged", Toast.LENGTH_SHORT).show();
-            notes.size();
             recyclerView.setAdapter(new MyAdapter(R.layout.note_item,notes,this));
         });
     }
