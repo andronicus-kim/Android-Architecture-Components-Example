@@ -1,5 +1,6 @@
 package io.andronicus.architectureexample;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,10 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 public class AddNoteActivity extends AppCompatActivity {
+
+    public static final String EXTRA_TITLE = "io.andronicus.architectureexample.EXTRA_TITLE";
+    public static final String EXTRA_DESCRIPTION= "io.andronicus.architectureexample.EXTRA_DESCRIPTION";
+    public static final String EXTRA_PRIORITY = "io.andronicus.architectureexample.EXTRA_PRIORITY";
 
     private EditText mEditTextTitle;
     private EditText mEditTextDescription;
@@ -39,7 +44,16 @@ public class AddNoteActivity extends AppCompatActivity {
             return;
         }
 
+        Intent data = new Intent();
+        data.putExtra(EXTRA_TITLE,title);
+        data.putExtra(EXTRA_DESCRIPTION,title);
+        data.putExtra(EXTRA_PRIORITY,priority);
 
+
+        // This confirms that data was successfully entered and saved
+        setResult(RESULT_OK,data);
+
+        finish();
     }
 
     @Override
