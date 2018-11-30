@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,6 +93,21 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.delete_all_notes){
+            saveNote();
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
         }
     }
 }
