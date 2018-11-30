@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.andronicus.simplifiedrecyclerview.MyAdapter;
@@ -34,13 +35,15 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
         });
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        MyAdapter<Note> adapter = new MyAdapter<>(R.layout.note_item,new ArrayList<>(),this);
 
         //get Viewmodel from the android system since it knows when to
         // create a new one when necessary
         mViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         mViewModel.getNotes().observe(this,notes -> {
             //Update recyclerview data here
-            recyclerView.setAdapter(new MyAdapter(R.layout.note_item,notes,this));
+            adapter.setData(notes);
+            recyclerView.setAdapter(adapter);
         });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -51,9 +54,10 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
+                mViewModel.delete(adapter.getItemAtPosition(viewHolder.getAdapterPosition()));
+                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
             }
-        });
+        }).attachToRecyclerView(recyclerView);
     }
 
     @Override
