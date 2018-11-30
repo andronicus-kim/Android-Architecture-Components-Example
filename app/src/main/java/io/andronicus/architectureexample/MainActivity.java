@@ -17,9 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.andronicus.simplifiedrecyclerview.MyAdapter;
+
+import static io.andronicus.architectureexample.AddEditNoteActivity.EXTRA_DESCRIPTION;
+import static io.andronicus.architectureexample.AddEditNoteActivity.EXTRA_ID;
+import static io.andronicus.architectureexample.AddEditNoteActivity.EXTRA_PRIORITY;
+import static io.andronicus.architectureexample.AddEditNoteActivity.EXTRA_TITLE;
 
 public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHolderCallbacks<Note>{
 
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
 
         FloatingActionButton addNote = findViewById(R.id.fab_add_note);
         addNote.setOnClickListener(view -> {
-            Intent intent = new Intent(this,AddNoteActivity.class);
+            Intent intent = new Intent(this,AddEditNoteActivity.class);
             startActivityForResult(intent,100);
         });
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -64,7 +68,11 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
 
     @Override
     public void onViewHolderClick(Note note, int position) {
-
+        Intent intent = new Intent(this,AddEditNoteActivity.class);
+        intent.putExtra(EXTRA_ID,note.getId());
+        intent.putExtra(EXTRA_TITLE,note.getTitle());
+        intent.putExtra(EXTRA_DESCRIPTION,note.getDescription());
+        intent.putExtra(EXTRA_PRIORITY,note.getPriority());
     }
 
     @Override
@@ -83,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK){
-            String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
-            int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY,1);
+            String title = data.getStringExtra(EXTRA_TITLE);
+            String description = data.getStringExtra(EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(EXTRA_PRIORITY,1);
 
             Note note = new Note(title,description,priority);
             mViewModel.insert(note);
