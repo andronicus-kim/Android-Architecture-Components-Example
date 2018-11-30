@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
         intent.putExtra(EXTRA_TITLE,note.getTitle());
         intent.putExtra(EXTRA_DESCRIPTION,note.getDescription());
         intent.putExtra(EXTRA_PRIORITY,note.getPriority());
+        startActivityForResult(intent,200);
     }
 
     @Override
