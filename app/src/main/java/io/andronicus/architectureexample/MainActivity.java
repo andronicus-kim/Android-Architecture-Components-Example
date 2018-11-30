@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.delete_all_notes){
-            saveNote();
+            mViewModel.deleteAll();
+            Toast.makeText(this, "All notes deleted", Toast.LENGTH_SHORT).show();
             return true;
         }else {
             return super.onOptionsItemSelected(item);
