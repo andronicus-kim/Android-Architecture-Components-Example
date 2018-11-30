@@ -60,6 +60,11 @@ public class AddEditNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_PRIORITY,priority);
 
 
+        int id = getIntent().getIntExtra(EXTRA_ID,-1);
+        if (id != -1){
+            data.putExtra(EXTRA_ID,id);
+        }
+
         // This confirms that data was successfully entered and saved
         setResult(RESULT_OK,data);
 

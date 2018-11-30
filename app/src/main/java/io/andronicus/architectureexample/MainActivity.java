@@ -100,6 +100,22 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.ViewHol
             mViewModel.insert(note);
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+        }else if (requestCode == 200 && resultCode == RESULT_OK){
+            int id = data.getIntExtra(EXTRA_ID,-1);
+
+            if (id == -1){
+                Toast.makeText(this, "Note can't be saved", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String title = data.getStringExtra(EXTRA_TITLE);
+            String description = data.getStringExtra(EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(EXTRA_PRIORITY,1);
+
+            Note note = new Note(title,description,priority);
+            note.setId(id);
+            mViewModel.update(note);
+
+            Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }
